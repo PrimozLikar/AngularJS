@@ -84,20 +84,39 @@ function UganiStevilo2() {
 
 
 function Vislice() {
-  var besede = ['stol', 'miza', 'pero', 'jablana', 'WTF', 'LOL'];
+  var besede = ['stol', 'miza', 'pero', 'jablana', 'WTF', 'LOL', 'serveti', 'brezobzirnost'];
   var rNum = (Math.floor((Math.random() * 6)));
   var izbranaBeseda = besede[rNum];
+  var origBeseda = izbranaBeseda;
+  var maskBeseda = izbranaBeseda.replace(/\w/g, 'X');
   alert(izbranaBeseda);
-  var i = 1;
+  alert(maskBeseda);
+  var i = 0;
+  var j = 0;
+  var indx = 0;
   alert('Ugani ' + izbranaBeseda.length + ' mestno besedo.');
   while((izbranaBeseda.length > 0) && (i < 10)) {
     inputChar = prompt('Vnesite črko:');
-    if (izbranaBeseda.includes(inputChar)) {
-      izbranaBeseda = izbranaBeseda.replace(inputChar, '');
+    while (izbranaBeseda.includes(inputChar.toString())) {
+      indx = izbranaBeseda.indexOf(inputChar.toString());
+      maskBeseda = maskBeseda.substr(0, origBeseda.indexOf(inputChar.toString(), indx)) + inputChar.toString() + maskBeseda.substr(origBeseda.indexOf(inputChar.toString(), indx) + 1);
+      izbranaBeseda = izbranaBeseda.replace(inputChar.toString(), '');
+      j++;
       //izbranaBeseda = izbranaBeseda.substr(0, izbranaBeseda.indexOf(inputChar)) + izbranaBeseda.substr(izbranaBeseda.indexOf(inputChar) + 1);
     }
+    if (izbranaBeseda.length == 0)  {
+      alert('Čestitam! Našel si pravo besedo.');        
+    }
+    else if(j > 0) {
+      alert('Odlično! Črka ' + inputChar.toString() + ' se ponovi ' + j + ' krat. Imaš še ' + (10 - i).toString() + ' poskusov.');
+      j = 0;
+    }
+    else {
+      i++;
+      alert('Imaš še ' + (10 - i).toString() + ' poskusov.');      
+    }
     alert(izbranaBeseda);
-    i++;
+    alert(maskBeseda);
   }
 }
 
