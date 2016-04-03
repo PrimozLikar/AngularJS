@@ -84,8 +84,9 @@ function UganiStevilo2() {
 
 
 function Vislice() {
-  var besede = ['stol', 'miza', 'pero', 'jablana', 'WTF', 'LOL', 'serveti', 'brezobzirnost'];
-  var rNum = (Math.floor((Math.random() * 6)));
+  //var besede = ['stol', 'miza', 'pero', 'jablana', 'WTF', 'LOL', 'serveti', 'brezobzirnost'];
+  var besede = ['jablana', 'palačinka'];
+  var rNum = (Math.floor((Math.random() * besede.length)));
   var izbranaBeseda = besede[rNum];
   var origBeseda = izbranaBeseda;
   var maskBeseda = izbranaBeseda.replace(/\w/g, 'X');
@@ -97,10 +98,10 @@ function Vislice() {
   alert('Ugani ' + izbranaBeseda.length + ' mestno besedo.');
   while((izbranaBeseda.length > 0) && (i < 10)) {
     inputChar = prompt('Vnesite črko:');
-    while (izbranaBeseda.includes(inputChar.toString())) {
-      indx = izbranaBeseda.indexOf(inputChar.toString());
+    while (izbranaBeseda.toLowerCase().includes(inputChar.toString().toLowerCase())) {
+      indx = izbranaBeseda.toLowerCase().indexOf(inputChar.toString().toLowerCase());
       maskBeseda = maskBeseda.substr(0, origBeseda.indexOf(inputChar.toString(), indx)) + inputChar.toString() + maskBeseda.substr(origBeseda.indexOf(inputChar.toString(), indx) + 1);
-      izbranaBeseda = izbranaBeseda.replace(inputChar.toString(), '');
+      izbranaBeseda = izbranaBeseda.replace(izbranaBeseda.charAt(indx), '@');
       j++;
       //izbranaBeseda = izbranaBeseda.substr(0, izbranaBeseda.indexOf(inputChar)) + izbranaBeseda.substr(izbranaBeseda.indexOf(inputChar) + 1);
     }
