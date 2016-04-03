@@ -84,40 +84,48 @@ function UganiStevilo2() {
 
 
 function Vislice() {
-  //var besede = ['stol', 'miza', 'pero', 'jablana', 'WTF', 'LOL', 'serveti', 'brezobzirnost'];
-  var besede = ['jablana', 'palačinka'];
+  var besede = ['stol', 'miza', 'pero', 'jablana', 'WTF', 'LOL', 'serveti', 'brezobzirnost', 'palačinka'];
+  //var besede = ['jablana', 'palačinka'];
   var rNum = (Math.floor((Math.random() * besede.length)));
   var izbranaBeseda = besede[rNum];
   var origBeseda = izbranaBeseda;
-  var maskBeseda = izbranaBeseda.replace(/\w/g, 'X');
-  alert(izbranaBeseda);
-  alert(maskBeseda);
+  var maskBeseda = izbranaBeseda.replace(/./g, '_');
+  //alert(izbranaBeseda);
+  //alert(maskBeseda);
+  var stPoskusov = 16;
   var i = 0;
   var j = 0;
+  var k = 0;
+  var l = 0;
   var indx = 0;
-  alert('Ugani ' + izbranaBeseda.length + ' mestno besedo.');
-  while((izbranaBeseda.length > 0) && (i < 10)) {
+  alert('Ugani ' + izbranaBeseda.length + ' mestno besedo v ' + stPoskusov + ' poizkusih.');
+  while((l < izbranaBeseda.length) && (k < stPoskusov)) {
     inputChar = prompt('Vnesite črko:');
+    if(inputChar.length != 1) {
+      alert('Veljaven vnos je ena sama črka.');
+      continue;
+    }
     while (izbranaBeseda.toLowerCase().includes(inputChar.toString().toLowerCase())) {
       indx = izbranaBeseda.toLowerCase().indexOf(inputChar.toString().toLowerCase());
       maskBeseda = maskBeseda.substr(0, origBeseda.indexOf(inputChar.toString(), indx)) + inputChar.toString() + maskBeseda.substr(origBeseda.indexOf(inputChar.toString(), indx) + 1);
       izbranaBeseda = izbranaBeseda.replace(izbranaBeseda.charAt(indx), '@');
       j++;
-      //izbranaBeseda = izbranaBeseda.substr(0, izbranaBeseda.indexOf(inputChar)) + izbranaBeseda.substr(izbranaBeseda.indexOf(inputChar) + 1);
+      l++;
     }
-    if (izbranaBeseda.length == 0)  {
-      alert('Čestitam! Našel si pravo besedo.');        
-    }
-    else if(j > 0) {
-      alert('Odlično! Črka ' + inputChar.toString() + ' se ponovi ' + j + ' krat. Imaš še ' + (10 - i).toString() + ' poskusov.');
+    if(j > 0) {
+      alert('Odlično! Črka ' + inputChar.toString() + ' se ponovi ' + j + ' krat.');
       j = 0;
     }
     else {
       i++;
-      alert('Imaš še ' + (10 - i).toString() + ' poskusov.');      
+      alert('Te črke ni v besedi. Imaš še ' + (stPoskusov - i).toString() + ' poskusov.');      
     }
-    alert(izbranaBeseda);
+    k++;
+    //alert(izbranaBeseda);
     alert(maskBeseda);
+  }
+  if(l == izbranaBeseda.length) {
+    alert('Čestitam, besedo ' + origBeseda + ' si uganil v ' + k + ' poizkusih.');    
   }
 }
 
